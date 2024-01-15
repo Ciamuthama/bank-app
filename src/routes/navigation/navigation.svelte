@@ -10,9 +10,9 @@
         <NavHamburger  />
         <NavUl >
           <NavLi href="/">Home</NavLi>
-          <NavLi href="/transaction">About</NavLi>
-          <NavLi href="/docs/components/navbar">Navbar</NavLi>
-          <NavLi href="/pricing">Pricing</NavLi>
+          <NavLi href="/transaction">Transaction</NavLi>
+          <NavLi href="/customer">Customer</NavLi>
+          <NavLi href="/payhistory">Pay History</NavLi>
           <NavLi href="/contact">Contact</NavLi>
         </NavUl>
       </Navbar>

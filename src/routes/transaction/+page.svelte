@@ -40,7 +40,7 @@ const date = formatDateAndTime();
   const sortItems = writable(items.slice()); // make a copy of the items array
 
   
-  const sortTable = (key) => {
+  const sortTable = ({key}:any) => {
     
     if ($sortKey === key) {
       sortDirection.update((val) => -val);
