@@ -1,5 +1,6 @@
 <script lang="ts">
 	import './styles.css'
+	import Page from './navigation/navigation.svelte'
 </script>
 
 <svelte:head>
@@ -8,6 +9,7 @@
 </svelte:head>
 
 <div>
+	<Page/>
 	<slot/>
 
 </div>
