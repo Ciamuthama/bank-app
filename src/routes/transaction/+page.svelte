@@ -35,12 +35,12 @@ const date = formatDateAndTime();
     { id: 4, date: date, type: 'IJK', make: 2020 }
   ];
 
-  const sortKey = writable(items); // default sort key
-  const sortDirection = writable(1); // default sort direction (ascending)
-  const sortItems = writable(items.slice()); // make a copy of the items array
+  const sortKey = writable(items);
+  const sortDirection = writable(1); 
+  const sortItems = writable(items.slice()); 
 
   
-  const sortTable = ({key}:any) => {
+  const sortTable = (key: string | { id: number; date: string; type: string; make: number; }[]) => {
     
     if ($sortKey === key) {
       sortDirection.update((val) => -val);
