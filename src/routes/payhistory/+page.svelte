@@ -66,6 +66,8 @@ const date = formatDateAndTime();
       });
       sortItems.set(sorted);
     }
+
+    const url = 'MasterCard'
   </script>
   
   <Table hoverable={true}>
@@ -95,4 +97,5 @@ const date = formatDateAndTime();
         </tr>
       </tfoot>
     </div>
+    <img src={`https://google.com/s2/favicons?domain=${url}`} alt="img" srcset="">
   </Table>
