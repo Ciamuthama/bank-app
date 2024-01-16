@@ -1,10 +1,15 @@
 <script lang="ts">
-	import Person from '../transaction/persons.svelte';
+	
 	import { Tabs, TabItem } from 'flowbite-svelte';
+	
     import Form from './form.svelte'
+
 </script>
 
-<div>
+
+<div class="flex flex-col">
+
+	
 	<Tabs style="underline">
 		<TabItem open title="Information">
 			<Form/>
@@ -23,6 +28,5 @@
 			</p>
 		</TabItem>
 	</Tabs>
-    
-	<Person />
+	
 </div>

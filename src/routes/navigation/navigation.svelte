@@ -1,21 +1,104 @@
-<script lang="ts">
-  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger,  Sidebar, SidebarGroup, SidebarItem, SidebarWrapper } from 'flowbite-svelte';
-  import Transaction from '../transaction/+page.svelte'
-  let activeClass = 'flex ite.ms-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700';
-  let nonActiveClass = 'flex items-center p-2 text-base font-normal text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700';
+<script>
+   let navActive = false;
+  const toggleNav = () => {
+    navActive = !navActive;
+  };
 </script>
 
-<div>
-    <Navbar  >
-        <NavHamburger  />
-        <NavUl >
-          <NavLi href="/">Home</NavLi>
-          <NavLi href="/transaction">Transaction</NavLi>
-          <NavLi href="/customer">Customer</NavLi>
-          <NavLi href="/payhistory">Pay History</NavLi>
-          <NavLi href="/contact">Contact</NavLi>
-        </NavUl>
-      </Navbar>
-        
-</div>
+<style>
+  main {
+    font-family: sans-serif;
+  }
 
+  .menu {
+    position: fixed;
+    background: black;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 80px;
+    transition: 300ms;
+  }
+
+  .menu.active {
+    width: 400px;
+  }
+
+  .menu.active .menu__Link {
+    color: white;
+  }
+
+  .menu__List {
+    all: unset;
+    display: block;
+    width: 100%;
+  }
+
+  .menu__Item {
+    display: block;
+  }
+
+  .menu__Link {
+    display: block;
+    padding: 5px;
+    margin: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: 30px;
+    color: transparent;
+    transition: 300ms;
+  }
+
+  .menu__Link:hover {
+    color: orange;
+  }
+
+  .menu__Link.active {
+    background: #555;
+  }
+
+  .menu__Link::before {
+    content: attr(title);
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 20px;
+    color: orange;
+  }
+
+  .menu__Toggle {
+    all: unset;
+    font-size: 14px;
+    color: red;
+    padding: 15px;
+    font-weight: bold;
+    background: #333;
+    margin: 20px;
+    cursor: pointer;
+  }
+
+  .wrapper {
+    margin-left: 80px;
+    padding-left: 40px;
+    transition: 300ms;
+  }
+
+  .wrapper.active {
+    margin-left: 400px;
+  }
+</style>
+
+<main>
+  <nav class="menu" class:active="{ navActive }">
+    <button class="menu__Toggle" on:click="{ () => toggleNav() }">{ navActive ? '<' : '>'}</button>
+    <ul class="menu__List">
+      <li class="menu__Item"><a title="🐤" class=" menu__Link ${navActive ? 'active':''}" href="/transaction">Link 1</a></li>
+      <li class="menu__Item"><a title="🐶" class=" menu__Link ${navActive ? 'active':''}"  href="/customer">Link with more text</a></li>
+      <li class="menu__Item"><a title="🙈" class=" menu__Link ${navActive ? 'active':''}" href="/payhistory">Link 3</a></li>
+      <li class="menu__Item"><a title="🐻" class=" menu__Link ${navActive ? 'active':''}"  href="/">Link 4</a></li>
+    </ul>
+  </nav>
+	</main>

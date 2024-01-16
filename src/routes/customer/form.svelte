@@ -1,21 +1,31 @@
-<script>
+<script lang='ts'>
 	import {
 		Input,
 		Label,
 		Helper,
-		Button,
-		Checkbox,
 		A,
 		Select,
 		Avatar,
 		Radio,
-        Textarea
+		Textarea,
+		Toolbar,
+		ToolbarGroup,
+		ToolbarButton,
+		Button,
+		MultiSelect
 	} from 'flowbite-svelte';
+	import {
+		PaperClipOutline,
+		MapPinAltSolid,
+		ImageOutline,
+		CodeOutline,
+		FaceGrinOutline,
+		PapperPlaneOutline
+	} from 'flowbite-svelte-icons';
+	import Navigation from '../navigation/navigation.svelte';
 
-	/**
-	 * @type {any}
-	 */
-	let selected;
+	
+	let selected: any;
 	let countries = [
 		{ value: 'us', name: 'United States' },
 		{ value: 'ca', name: 'Canada' },
@@ -33,7 +43,7 @@
 
 <div>
 	<form>
-		<div>
+		<div class="w-full">
 			<div class="mb-6 grid md:grid-cols-2">
 				<div class="flex flex-wrap gap-10">
 					<div class="w-52">
@@ -67,21 +77,46 @@
 						<Select class="mt-2 w-52" items={position} bind:value={selected} />
 					</div>
 				</div>
-				<Avatar
+				<div class="flex flex-col gap-1"><Avatar
 					src="https://webix.com/demos/bank-app/data/photos/tommie_1.jpg"
 					rounded
 					class="h-[259px] w-[259px]"
 				/>
+				<MultiSelect items={countries} bind:value={selected} class='w-[259px]' size="sm" />
+			
+			</div>
 			</div>
 
-			<div>
-				<Label for="example" class="mb-2">Notifacation</Label>
-				<Radio name="example" bind:group={select} value={1}>Yes</Radio>
-				<Radio name="example" value={2}>No</Radio>
+			<div class="flex flex-col">
+				<Label for="example" class="mb-2">Notifications
+				</Label>
+				<div class="flex flex-row gap-2 mb-2">
+					<Radio name="example" bind:group={select} value={1}>Yes</Radio>
+					<Radio name="example" value={2}>No</Radio>
+				</div>
 			</div>
 			<div>
-				<Label for="textarea-id" class="mb-2">Your message</Label>
-				<Textarea id="textarea-id" placeholder="Your message" rows="4" name="message" />
+				<label for="editor" class="mb-2 font-semibold text-sm">Notes</label>
+				<Textarea id="editor" rows="8" col='4' class="mb-4" placeholder="Write a comment">
+					<Toolbar slot="header" embedded>
+						<ToolbarGroup>
+							<ToolbarButton name="Attach file"
+								><PaperClipOutline class="h-5 w-5 rotate-45" /></ToolbarButton
+							>
+							<ToolbarButton name="Embed map"><MapPinAltSolid class="h-5 w-5" /></ToolbarButton>
+							<ToolbarButton name="Upload image"><ImageOutline class="h-5 w-5" /></ToolbarButton>
+						</ToolbarGroup>
+						<ToolbarGroup>
+							<ToolbarButton name="Format code"><CodeOutline class="h-5 w-5" /></ToolbarButton>
+							<ToolbarButton name="Add emoji"><FaceGrinOutline class="h-5 w-5" /></ToolbarButton>
+						</ToolbarGroup>
+						<ToolbarButton name="send" slot="end"
+							><PapperPlaneOutline class="h-5 w-5 rotate-45" /></ToolbarButton
+						>
+					</Toolbar>
+				</Textarea>
+				<div class="float-right"><Button class='bg-neutral-100'><h2 class="text-[#46B2CC]">Reset</h2></Button>
+				<Button class='bg-neutral-100'><h2 class="text-[#46B2CC]">Save</h2></Button></div>
 			</div>
 		</div>
 	</form>

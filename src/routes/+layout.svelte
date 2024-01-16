@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './styles.css'
-	import Page from './navigation/navigation.svelte'
+	import Person from './transaction/persons.svelte';
+	// import Page from './navigation/navigation.svelte'
 </script>
 
 <svelte:head>
@@ -9,7 +10,9 @@
 </svelte:head>
 
 <div>
-	<Page/>
+	<div class="float-right">
+		<Person/>
+	</div>
 	<slot/>
 
 </div>
