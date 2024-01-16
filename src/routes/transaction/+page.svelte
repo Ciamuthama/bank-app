@@ -1,144 +1,146 @@
 <script lang="ts">
-  import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
-  import { writable } from 'svelte/store';
-  import  Persons  from './persons.svelte'
-  import { InlineCalendar } from 'svelte-calendar';
-	
-  function formatDateAndTime() {
-  const options = {
-    month: 'long',
-    day: 'numeric',
-    };
-
-  const format={
-    hour:'numeric',
-    minute:'numeric',
-    hours12:false,
-  }
-
-  let time = new Date()
-  const datePart = time.toLocaleDateString('en-US', options) ;
-  const timePart = time.toLocaleTimeString('en-US',format);
-  
-
-  return `${datePart} ${timePart}`;
-}
-
-const date = formatDateAndTime();
+	import {
+		Table,
+		TableBody,
+		TableBodyCell,
+		TableBodyRow,
+		TableHead,
+		TableHeadCell,
+    Button,
+	} from 'flowbite-svelte';
+	import { writable } from 'svelte/store';
+	import Persons from './persons.svelte';
+	import { InlineCalendar } from 'svelte-calendar';
+	import Transactions from '../../data/payments.json';
 
 
 
-  let items = [
-    { id: 1, date: date , type: 'ABC', make: 2017 },
-    { id: 2, date: date, type: 'CDE', make: 2018 },
-    { id: 3, date: date, type: 'FGH', make: 2019 },
-    { id: 4, date: date, type: 'IJK', make: 2020 }
-  ];
+	const sortKey = writable(Transactions);
+	const sortDirection = writable(1);
+	const sortItems = writable(Transactions.slice());
 
-  const sortKey = writable(items);
-  const sortDirection = writable(1); 
-  const sortItems = writable(items.slice()); 
-
-  
-  const sortTable = (key: string | { id: number; date: string; type: string; make: number; }[]) => {
-    
-    if ($sortKey === key) {
-      sortDirection.update((val) => -val);
-    } else {
-      sortKey.set(key);
-      sortDirection.set(1);
-    }
-  };
-
-  $: {
-    const key = $sortKey;
-    const direction = $sortDirection;
-    const sorted = [...$sortItems].sort((a, b) => {
-      const aVal = a[key];
-      const bVal = b[key];
-      if (aVal < bVal) {
-        return -direction;
-      } else if (aVal > bVal) {
-        return direction;
-      }
-      return 0;
-    });
-    sortItems.set(sorted);
-
-
+	const sortTable = (
+		key:
+			| string
+			| {
+					
+					type: number;
+					
+			  }[]
+	) => {
+		if ($sortKey === key) {
+			sortDirection.update((val) => -val);
+		} else {
+			sortKey.set(key);
+			sortDirection.set(1);
+		}
 	};
-  const theme = {
-  calendar: {
-    "width": "320px",
-    "maxWidth": "100vw",
-    "legend": {
-      "height": "20px"
-    },
-    "font": {
-      "regular": "15px",
-      "large": "10px"
-    },
-    shadow: '0px 0px 5px rgba(0, 0, 0, 0.25)'
-  }
-}
 
-let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700';
-let nonActiveClass = 'flex items-center p-2 text-base font-normal text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700';
-let toggle =''
+	$: {
+		const key = $sortKey;
+		const direction = $sortDirection;
+		const sorted = [...$sortItems].sort((a, b) => {
+			const aVal = a[key];
+			const bVal = b[key];
+			if (aVal < bVal) {
+				return -direction;
+			} else if (aVal > bVal) {
+				return direction;
+			}
+			return 0;
+		});
+    let allowed= [0,1]
+    const filltered = sorted.filter( item=> allowed.includes(item.type))
+		sortItems.set(filltered);
+	}
+	const theme = {
+		calendar: {
+			width: '320px',
+			maxWidth: '100vw',
+			legend: {
+				height: '25px'
+			},
+			font: {
+				regular: '15px',
+				large: '10px'
+			},
+			shadow: '0px 0px 5px rgba(0, 0, 0, 0)'
+		}
+	};
+
+	let activeClass =
+		'flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700';
+	let nonActiveClass =
+		'flex items-center p-2 text-base font-normal text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700';
+
+	let toggle = false;
+  const sortIt ={
+    toggle: !toggle ? activeClass: nonActiveClass
+  }
 </script>
 
+<div class="flex justify-end mt-10 gap-5 mr-2 bg-neutral-100">
+	<div class="bg-white p-2">
+		<div class="flex justify-between mb-3">
+			<div>
+				<h2 class="font-bold text-neutral-600">Transactions</h2>
+			</div>
+			<div class="flex flex-row gap-5">
+				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('id')} on:click={()=>sortIt}>All</Button>
+				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('type')}>Payment</Button>
+				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('type')}>Incomming</Button>
+			</div>
+		</div>
 
-<div class="flex justify-around gap-10">
- <div> 
-  <div class="flex justify-between">
-    <div>
-      <h2 class="font-bold text-neutral-600">Transactions</h2>
+		<div class="h-[565px] overflow-scroll scrollbar-hide">
+			<Table hoverable={true} class='bg-neutral-400'>
+				<TableHead>
+					<TableHeadCell>#</TableHeadCell>
+					<TableHeadCell>Date</TableHeadCell>
+					<TableHeadCell>Payment</TableHeadCell>
+					<TableHeadCell>Purchase</TableHeadCell>
+					<TableHeadCell>+/-</TableHeadCell>
+					<TableHeadCell>sum</TableHeadCell>
+					<TableHeadCell>Left</TableHeadCell>
+				</TableHead>
+				<TableBody>
+					{#each $sortItems as data}
+						<TableBodyRow>
+							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.id}</TableBodyCell>
+							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.date}</TableBodyCell>
+							<TableBodyCell class="flex items-center gap-2 px-2 py-2 text-[#475466]"
+								><img
+									src={`https://icon.horse/icon/${data.method}.com`}
+									width="20"
+									height="20"
+                  alt={data.method}
+								/><span>{data.method} {data.number}</span></TableBodyCell
+							>
+							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.name}/ {data.city}/ {data.country}</TableBodyCell>
+							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.type}</TableBodyCell>
+							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.sum}</TableBodyCell>
+							<TableBodyCell class='px-2 py-2 text-[#475466] font-medium font-roboto'>{data.left}</TableBodyCell>
+						</TableBodyRow>
+					{/each}
+				</TableBody>
+			</Table>
+      <div class="fixed flex w-full justify-center">
+      </div>
     </div>
-    <div class="flex flex-row gap-5">
-  <h2 on:click={() => sortTable('id')}>All</h2>
-  <h2 on:click={() => sortTable('type')}>Payment</h2>
-  <h2 on:click={() => sortTable('id')}>Incomming</h2>
-</div>
-</div>
+    <tfoot class="flex justify-end">
+      <tr class="font-semibold text-gray-900 dark:text-white">
+        <th scope="row" class="px-6 py-1 text-base">Total</th>
+        <td class="px-6 py-1">3</td>
+        <td class="px-6 py-1">21,000</td>
+      </tr>
+    </tfoot>
+  </div>
 
-<div>
-  <Table hoverable={true}>
-  <TableHead>
-    <TableHeadCell>#</TableHeadCell>
-    <TableHeadCell>Date</TableHeadCell>
-    <TableHeadCell>Payment</TableHeadCell>
-    <TableHeadCell>Purchase</TableHeadCell>
-    <TableHeadCell>+/-</TableHeadCell>
-    <TableHeadCell>sum</TableHeadCell>
-    <TableHeadCell>Left</TableHeadCell>
-  </TableHead>
-  <TableBody class="divide-y-6">
-    {#each $sortItems as item}
-      <TableBodyRow>
-        <TableBodyCell>{item.id}</TableBodyCell>
-        <TableBodyCell>{item.date}</TableBodyCell>
-        <TableBodyCell>{item.type}</TableBodyCell>
-        <TableBodyCell>{item.make}</TableBodyCell>
-        <TableBodyCell>{item.date}</TableBodyCell>
-        <TableBodyCell>{item.type}</TableBodyCell>
-        <TableBodyCell>{item.make}</TableBodyCell>
-      </TableBodyRow>
-    {/each}
-  </TableBody>
-  <div class="flex justify-center w-full fixed">
-    <tfoot>
-    <tr class="font-semibold text-gray-900 dark:text-white">
-      <th scope="row" class="py-3 px-6 text-base">Total</th>
-      <td class="py-3 px-6">3</td>
-      <td class="py-3 px-6">21,000</td>
-    </tr>
-  </tfoot></div>
-</Table>
-</div>
-</div>
+	<div>
+    <div class="h-[284.5px] overflow-scroll scrollbar-hide bg-white p-2 rounded-sm mb-2">
+		<Persons />
+	</div>
+  <div class="bg-white"><InlineCalendar {theme} /></div>
 
-<div>
-<Persons/>
-<InlineCalendar {theme}/>
 </div>
 </div>

@@ -9,10 +9,8 @@
 	
 </svelte:head>
 
-<div>
-	<div class="float-right">
-		<Person/>
-	</div>
+<div class="overflow-y-hidden h-full bg-neutral-100">
+	
 	<slot/>
 
 </div>

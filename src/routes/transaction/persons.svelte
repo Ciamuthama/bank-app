@@ -1,7 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import  person  from '../../../data/persons.json'
+   import { person } from '../../data/persons';
     import { List, Li } from 'flowbite-svelte';
+    import image from '../../data/photos/tommie_1.jpg'
   
     
 
@@ -15,7 +16,7 @@
   <Li class="pb-3 sm:pb-4">
     <div class="flex items-center space-x-4 rtl:space-x-reverse">
       <div class="flex-shrink-0">
-        <img class="w-8 h-8 rounded-full" src="/images/profile-picture-1.webp" alt="Neil profile" />
+        <img class="w-8 h-8 rounded-full" src={user.photo} alt={user.fname}/>
       </div>
       <div class="flex-1 min-w-0">
         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">{user.fname}{user.lname}</p>
