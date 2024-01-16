@@ -11,3 +11,21 @@ declare global {
 }
 
 export {};
+
+interface Person {
+    id: number;
+    fname: string;
+    lname: string;
+    company: number;
+    photo: string;
+    money: string;
+    position: string;
+    city: string;
+    notifications: number;
+    email: string;
+    address: string;
+    birthday: string;
+    notes: string;
+    tags: string[];
+}
+
