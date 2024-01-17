@@ -3,24 +3,20 @@
 	import { person } from '../../data/persons';
 	import { List, Li, Input, Label } from 'flowbite-svelte';
 
-	let selectedId = '';
+	let selectedId = person;
 
 	
 </script>
+<main>
 
 {#each person as user}
-{#if user.fname === selectedId }
-  <Label for='serach'>
-    <Input type='search' class='bg-gray-500' value={selectedId} />
-  </Label>
-{/if}
-	<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-		<Li class="pb-3 sm:pb-4">
-			
-			<div
+  <List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+	  <Li class="pb-3 sm:pb-4">
+		  
+		  <div
 				class="flex items-center space-x-4 px-1 hover:border-l-2 hover:border-l-[#46B2CC] active:border-l-[#46B2CC] active:bg-neutral-200 rtl:space-x-reverse"
 			>
-				<div class="flex-shrink-0">
+			<div class="flex-shrink-0">
 					<img class="h-8 w-8 rounded-full" src={user.photo} alt={user.fname} />
 				</div>
 				<div class="min-w-0 flex-1">
@@ -33,4 +29,4 @@
 			</div>
 		</Li>
 	</List>
-{/each}
+{/each}</main>

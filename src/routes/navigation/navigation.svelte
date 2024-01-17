@@ -99,7 +99,7 @@
       <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
       </svg></button>
-      <div class="flex items-center gap-5 mt-9 ml-8">
+      <div class="flex items-center gap-5 mt-9 ml-[26.50px]">
         <img src="https://icon.horse/icon/webix.com" width="26px" alt="webix" srcset="" />
         <h2 class="text-sm font-medium">WEBIX</h2>
       </div>
