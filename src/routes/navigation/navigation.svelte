@@ -11,13 +11,14 @@
   }
 
   .menu {
-    position: fixed;
+    position: relative;
     background: black;
     left: 0;
     top: 0;
     bottom: 0;
     overflow: hidden;
-    width: 80px;
+    width: 100px;
+    height: 100vh;
     transition: 300ms;
   }
 

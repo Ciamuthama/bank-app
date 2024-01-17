@@ -62,8 +62,8 @@
     };
   </script>
   
-  <Card>
-    <div class="flex justify-between items-start w-full">
+  <Card class='flex justify-center w-full ml-auto mr-auto'>
+    <div class="flex justify-center items-start w-full">
       <div class="flex-col items-center">
         <div class="flex items-center mb-1">
           <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Your team's progress</h5>
@@ -128,7 +128,7 @@
     <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
       <div class="flex justify-between items-center pt-5">
         <Button class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white bg-transparent hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent focus:ring-transparent dark:focus:ring-transparent py-0">Last 7 days<ChevronDownSolid class="w-2.5 m-2.5 ms-1.5" /></Button>
-        <Dropdown class="w-40" offset="-6">
+        <Dropdown class="w-40">
           <DropdownItem>Yesterday</DropdownItem>
           <DropdownItem>Today</DropdownItem>
           <DropdownItem>Last 7 days</DropdownItem>

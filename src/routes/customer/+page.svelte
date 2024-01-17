@@ -13,26 +13,25 @@
 	}
 </script>
 
-<div class="flex h-screen justify-between overflow-hidden bg-white scrollbar-hide">
-	<div class="flex flex-col"><Persons /></div>
+
+<div class="flex h-screen justify-between mx-2 overflow-hidden bg-white scrollbar-hide">
+	<div class="flex flex-col">
+		<Persons />
+	</div>
 	<div class="flex w-full flex-col">
 		<Tabs style="underline">
 			<TabItem open title="Information">
 				<Form />
 			</TabItem>
 			<TabItem title="Payment History">
-				{#each person as item}
-					{#if item.id === onePerson}
-						<Payhistory />
-					{/if}
-				{/each}
+				<div class='w-[1000px] mx-auto'>
+					<Payhistory />
+				</div>
 			</TabItem>
 			<TabItem title="Statistics">
 				<Statistics />
 			</TabItem>
 		</Tabs>
 	</div>
-	<div class="mx-2 flex h-[590] w-[300px] flex-col overflow-scroll bg-white px-2 scrollbar-hide">
-		<Persons />
-	</div>
+	
 </div>

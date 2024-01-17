@@ -43,7 +43,7 @@
 		{#key user.id}
 			<div>
 				<form>
-					<div class="w-full">
+					<div class="w-full mx-auto">
 						<div class="mb-2 grid md:grid-cols-2 place-content-between">
 							<div class="flex flex-wrap gap-x-10" >
 								<div class="w-52">
