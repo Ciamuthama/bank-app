@@ -6,14 +6,12 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-    Button,
+		Button
 	} from 'flowbite-svelte';
 	import { writable } from 'svelte/store';
 	import Persons from './persons.svelte';
 	import { InlineCalendar } from 'svelte-calendar';
 	import Transactions from '../../data/payments.json';
-
-
 
 	const sortKey = writable(Transactions);
 	const sortDirection = writable(1);
@@ -23,9 +21,7 @@
 		key:
 			| string
 			| {
-					
 					type: number;
-					
 			  }[]
 	) => {
 		if ($sortKey === key) {
@@ -36,6 +32,8 @@
 		}
 	};
 
+	
+
 	$: {
 		const key = $sortKey;
 		const direction = $sortDirection;
@@ -43,16 +41,20 @@
 			const aVal = a[key];
 			const bVal = b[key];
 			if (aVal < bVal) {
-				return -direction;
+				return -direction ;
 			} else if (aVal > bVal) {
 				return direction;
 			}
 			return 0;
 		});
-    let allowed= [0,1]
-    const filltered = sorted.filter( item=> allowed.includes(item.type))
+		let allowed = [0, 1];
+		const filltered = sorted.filter((item) => allowed.includes(item.type));
 		sortItems.set(filltered);
 	}
+	
+	const total = Transactions.reduce((total, item) => total + parseInt(item.sum), 0).toFixed(2);
+	const left = Transactions.reduce((total, item) => total + parseInt(item.left), 0).toFixed(2);
+
 	const theme = {
 		calendar: {
 			width: '320px',
@@ -74,26 +76,36 @@
 		'flex items-center p-2 text-base font-normal text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700';
 
 	let toggle = false;
-  const sortIt ={
-    toggle: !toggle ? activeClass: nonActiveClass
-  }
+	const sortIt = {
+		toggle: !toggle ? activeClass : nonActiveClass
+	};
 </script>
 
-<div class="flex justify-end mt-10 gap-5 mr-2 bg-neutral-100">
-	<div class="bg-white p-2">
-		<div class="flex justify-between mb-3">
+<div class="mr-2 mt-10 flex justify-end gap-5 bg-neutral-100 rounded">
+	<div class="bg-white p-2 rounded-lg">
+		<div class="mb-3 flex justify-between">
 			<div>
 				<h2 class="font-bold text-neutral-600">Transactions</h2>
 			</div>
 			<div class="flex flex-row gap-5">
-				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('id')} on:click={()=>sortIt}>All</Button>
-				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('type')}>Payment</Button>
-				<Button class='focus-within:shadow-none focus-within:ring-primary-300/0' on:click={() => sortTable('type')}>Incomming</Button>
+				<Button
+					class="focus-within:shadow-none focus-within:ring-primary-300/0"
+					on:click={() => sortTable('id')}
+					on:click={() => sortIt}>All</Button
+				>
+				<Button
+					class="focus-within:shadow-none focus-within:ring-primary-300/0"
+					on:click={() => sortTable('type')}>Payment</Button
+				>
+				<Button
+					class="focus-within:shadow-none focus-within:ring-primary-300/0"
+					on:click={() => sortTable('type')}>Incomming</Button
+				>
 			</div>
 		</div>
 
 		<div class="h-[565px] overflow-scroll scrollbar-hide">
-			<Table hoverable={true} class='bg-neutral-400'>
+			<Table hoverable={true} class="bg-neutral-400">
 				<TableHead>
 					<TableHeadCell>#</TableHeadCell>
 					<TableHeadCell>Date</TableHeadCell>
@@ -106,41 +118,45 @@
 				<TableBody>
 					{#each $sortItems as data}
 						<TableBodyRow>
-							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.id}</TableBodyCell>
-							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.date}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.id}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.date}</TableBodyCell>
 							<TableBodyCell class="flex items-center gap-2 px-2 py-2 text-[#475466]"
 								><img
 									src={`https://icon.horse/icon/${data.method}.com`}
 									width="20"
 									height="20"
-                  alt={data.method}
+									alt={data.method}
 								/><span>{data.method} {data.number}</span></TableBodyCell
 							>
-							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.name}/ {data.city}/ {data.country}</TableBodyCell>
-							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.type}</TableBodyCell>
-							<TableBodyCell class='px-2 py-2 text-[#475466]'>{data.sum}</TableBodyCell>
-							<TableBodyCell class='px-2 py-2 text-[#475466] font-medium font-roboto'>{data.left}</TableBodyCell>
+							<TableBodyCell class="px-3 py-2 text-[#475466] text-left"
+								>{data.name}/ {data.city}/ {data.country}</TableBodyCell
+							>
+							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.type}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.sum}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 font-medium text-[#475466] text-center"
+								>{data.left}</TableBodyCell
+							>
 						</TableBodyRow>
 					{/each}
 				</TableBody>
 			</Table>
-      <div class="fixed flex w-full justify-center">
-      </div>
-    </div>
-    <tfoot class="flex justify-end">
-      <tr class="font-semibold text-gray-900 dark:text-white">
-        <th scope="row" class="px-6 py-1 text-base">Total</th>
-        <td class="px-6 py-1">3</td>
-        <td class="px-6 py-1">21,000</td>
-      </tr>
-    </tfoot>
-  </div>
+			<div class="fixed flex w-full justify-center"></div>
+		</div>
+		
+			<tfoot class="flex justify-end">
+				<tr class="font-semibold text-gray-900 dark:text-white">
+					<th scope="row" class="px-6 py-1 text-[14px]">Total</th>
+					<td class="px-3 py-1 text-[14px]">${total}</td>
+					<td class="px-3 py-1 text-[14px]">${left}</td>
+				</tr>
+			</tfoot>
+		
+	</div>
 
 	<div>
-    <div class="h-[284.5px] overflow-scroll scrollbar-hide bg-white p-2 rounded-sm mb-2">
-		<Persons />
+		<div class="mb-2 h-[284.5px] overflow-scroll rounded-lg bg-white p-2 scrollbar-hide">
+			<Persons />
+		</div>
+		<div class="bg-white p-2 rounded-lg"><InlineCalendar {theme} /></div>
 	</div>
-  <div class="bg-white"><InlineCalendar {theme} /></div>
-
-</div>
 </div>

@@ -1,30 +1,33 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-   import { person } from '../../data/persons';
-    import { List, Li } from 'flowbite-svelte';
-    import image from '../../data/photos/tommie_1.jpg'
-  
-    
+	import { Link } from 'svelte-routing';
+	import { person } from '../../data/persons';
+	import { List, Li } from 'flowbite-svelte';
 
+	let selectedId = 1;
 
-    
+	const nextUser = () => {
+		return (selectedId = (selectedId % person.length) + 1);
+	};
 </script>
 
-{#each person as user }
-  
-<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-  <Li class="pb-3 sm:pb-4">
-    <div class="flex items-center space-x-4 rtl:space-x-reverse">
-      <div class="flex-shrink-0">
-        <img class="w-8 h-8 rounded-full" src={user.photo} alt={user.fname}/>
-      </div>
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">{user.fname}{user.lname}</p>
-        <p class="text-sm text-gray-500 truncate dark:text-gray-400">${user.money}</p>
-      </div>
-      
-    </div>
-  </Li>
-  
-</List>
+{#each person as user}
+	<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+		<Li class="pb-3 sm:pb-4">
+			
+			<div
+				class="flex items-center space-x-4 px-1 hover:border-l-2 hover:border-l-[#46B2CC] active:border-l-[#46B2CC] active:bg-neutral-200 rtl:space-x-reverse"
+			>
+				<div class="flex-shrink-0">
+					<img class="h-8 w-8 rounded-full" src={user.photo} alt={user.fname} />
+				</div>
+				<div class="min-w-0 flex-1">
+					<p class="truncate text-sm font-medium text-gray-900 dark:text-white">
+						{user.fname}
+						{user.lname}
+					</p>
+					<p class="truncate text-sm font-normal text-gray-500 dark:text-gray-400">${user.money}</p>
+				</div>
+			</div>
+		</Li>
+	</List>
 {/each}

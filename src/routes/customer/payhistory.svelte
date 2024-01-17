@@ -3,42 +3,11 @@
 
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { writable } from 'svelte/store';
+    import IndividualPay from '../../data/ipayments.json'
   
-    function formatDateAndTime() {
-  const options = {
-    month: 'long',
-    day: 'numeric',
-    };
-
-  const format={
-    hour:'numeric',
-    minute:'numeric',
-    hours12:false,
-  }
-
-  let time = new Date()
-  const datePart = time.toLocaleDateString('en-US', options) ;
-  const timePart = time.toLocaleTimeString('en-US',format);
-  
-
-  return `${datePart} ${timePart}`;
-}
-
-const date = formatDateAndTime();
-
-
-
-  let items = [
-    { id: 1, date: date , type: 'ABC', quantity: 2017, cost:'1000' },
-    { id: 2, date: date, type: 'CDE', quantity: 2017, cost:'1000' },
-    { id: 3, date: date, type: 'FGH', quantity: 2017,cost:'1000' },
-    { id: 4, date: date, type: 'IJK', quantity: 2017,cost:'1200' }
-  ];
-
-  
-    const sortKey = writable('id'); 
+    const sortKey = writable(IndividualPay); 
     const sortDirection = writable(1);
-    const sortItems = writable(items.slice()); 
+    const sortItems = writable(IndividualPay.slice()); 
   
    
     const sortTable = (/** @type {string} */ key) => {
@@ -67,7 +36,8 @@ const date = formatDateAndTime();
       sortItems.set(sorted);
     }
 
-    const url = 'MasterCard'
+   const individual = 1
+
   </script>
   
   <Table hoverable={true}>
@@ -80,12 +50,15 @@ const date = formatDateAndTime();
     </TableHead>
     <TableBody class="divide-y">
       {#each $sortItems as item}
-        <TableBodyRow>
-        <TableBodyCell>{item.date}</TableBodyCell>
-          <TableBodyCell>{item.quantity}</TableBodyCell>
-          <TableBodyCell>{item.make}</TableBodyCell>
-          <TableBodyCell>{item.cost}</TableBodyCell>
-        </TableBodyRow>
+        {#if item.id === individual}
+          <TableBodyRow>
+          <TableBodyCell>{individual.date}</TableBodyCell>
+            <TableBodyCell>{individual.type}</TableBodyCell>
+            <TableBodyCell>{individual.item}</TableBodyCell>
+            <TableBodyCell>{individual.quantity}</TableBodyCell>
+            <TableBodyCell>{individual.cost}</TableBodyCell>
+          </TableBodyRow>
+        {/if}
       {/each}
     </TableBody>
     <div>
@@ -97,5 +70,5 @@ const date = formatDateAndTime();
         </tr>
       </tfoot>
     </div>
-    <img src={`https://google.com/s2/favicons?domain=${url}`} alt="img" srcset="">
+    
   </Table>
