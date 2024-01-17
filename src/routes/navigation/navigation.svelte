@@ -1,39 +1,48 @@
 <script>
+
+  
    let navActive = false;
   const toggleNav = () => {
     navActive = !navActive;
   };
+
+  let activeTab = false
+  const toggleTab = ()=>{
+    activeTab = !activeTab
+  }
 </script>
 
 <style>
   main {
-    font-family: sans-serif;
+    width: fit-content;
+    min-width: 50px;
   }
 
   .menu {
     position: relative;
-    background: black;
+    background: white;
     left: 0;
     top: 0;
     bottom: 0;
     overflow: hidden;
-    width: 100px;
+    width: 50px;
     height: 100vh;
     transition: 300ms;
   }
 
   .menu.active {
-    width: 400px;
+    width: 200px;
   }
 
   .menu.active .menu__Link {
-    color: white;
+    color: #46B2CC;
   }
 
   .menu__List {
     all: unset;
     display: block;
     width: 100%;
+    margin-top: 3em;
   }
 
   .menu__Item {
@@ -43,7 +52,6 @@
   .menu__Link {
     display: block;
     padding: 5px;
-    margin: 15px;
     text-decoration: none;
     white-space: nowrap;
     border-radius: 30px;
@@ -56,7 +64,8 @@
   }
 
   .menu__Link.active {
-    background: #555;
+    background: #46B2CC;
+    color: white;
   }
 
   .menu__Link::before {
@@ -66,40 +75,43 @@
     height: 40px;
     line-height: 40px;
     text-align: center;
-    margin-right: 20px;
     color: orange;
   }
 
   .menu__Toggle {
-    all: unset;
+    position: relative;
     font-size: 14px;
+    top:1.25em;
     color: red;
     padding: 15px;
     font-weight: bold;
-    background: #333;
-    margin: 20px;
+    background: white;
     cursor: pointer;
   }
 
-  .wrapper {
-    margin-left: 80px;
-    padding-left: 40px;
-    transition: 300ms;
-  }
-
-  .wrapper.active {
-    margin-left: 400px;
-  }
+  
 </style>
 
-<main>
+<main class="relative -mt-[70px]">
   <nav class="menu" class:active="{ navActive }">
-    <button class="menu__Toggle" on:click="{ () => toggleNav() }">{ navActive ? '<' : '>'}</button>
-    <ul class="menu__List">
-      <li class="menu__Item"><a title="🐤" class=" menu__Link ${navActive ? 'active':''}" href="/transaction">Link 1</a></li>
-      <li class="menu__Item"><a title="🐶" class=" menu__Link ${navActive ? 'active':''}"  href="/customer">Link with more text</a></li>
-      <li class="menu__Item"><a title="🙈" class=" menu__Link ${navActive ? 'active':''}" href="/payhistory">Link 3</a></li>
-      <li class="menu__Item"><a title="🐻" class=" menu__Link ${navActive ? 'active':''}"  href="/">Link 4</a></li>
+    <div class="flex">
+      <button class="menu__Toggle " on:click="{ () => toggleNav() }">
+      <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+      </svg></button>
+      <div class="flex items-center gap-5 mt-9 ml-8">
+        <img src="https://icon.horse/icon/webix.com" width="26px" alt="webix" srcset="" />
+        <h2 class="text-sm font-medium">WEBIX</h2>
+      </div>
+    </div>
+    <ul class="menu__List" class:active='{activeTab}'>
+      <li class="menu__Item"><a title="🐤" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction">Transaction</a></li>
+      <li class="menu__Item"><a title="🐶" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
+      <li class="menu__Item"><a title="🙈" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
+      <li class="menu__Item"><a title="🐤" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction">Transaction</a></li>
+      <li class="menu__Item"><a title="🐶" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
+      <li class="menu__Item"><a title="🙈" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
+      
     </ul>
   </nav>
 	</main>

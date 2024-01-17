@@ -23,8 +23,8 @@ const config = {
 	  },
 	
 
-	plugins: [require('flowbite/plugin'),require('tailwind-scrollbar-hide')],
-	darkMode: 'class',
+	plugins: [require('flowbite/plugin'),require('tailwind-scrollbar-hide'),require("daisyui")],
+	
 };
 
 module.exports = config;

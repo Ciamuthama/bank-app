@@ -4,6 +4,7 @@
         import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
         import { writable } from 'svelte/store';
         import itemPay from '../../data/ipayments.json'
+        import Persons from '../transaction/persons.svelte';
       
         const sortKey = writable(itemPay); 
         const sortDirection = writable(1);
@@ -40,19 +41,20 @@
     
       </script>
       
-      <div class="overflow-scroll h-screen scrollbar-hide w-full bg-white">
-      <Table hoverable={true}>
-        <TableHead class='bg-white'>
+      <div class="grid grid-flow-col-dense gap-2 mr-2 overflow-scroll scrollbar-hide h-screen w-full bg-white">
+    
+        <Table hoverable={true} class='scrollbar-hide'>
+        <TableHead class='bg-white scrollbar-hide'>
         <TableHeadCell on:click={() => sortTable('date')} class='px-2'>Date</TableHeadCell>
           <TableHeadCell on:click={() => sortTable('quantity')}>Type</TableHeadCell>
           <TableHeadCell on:click={() => sortTable('type')}>item</TableHeadCell>
           <TableHeadCell on:click={() => sortTable('make')}>Quantity</TableHeadCell>
           <TableHeadCell on:click={() => sortTable('cost')}>Cost</TableHeadCell>
         </TableHead>
-          <TableBody >
+          <TableBody class='scrollbar-hide'>
           {#each $sortItems as item}
             
-              <TableBodyRow>
+              <TableBodyRow class='scrollbar-hide'>
               <TableBodyCell class="px-1 py-2 text-[#475466]">{item.date}</TableBodyCell>
                 <TableBodyCell class="px-1 py-2 text-[#475466]">{item.type}</TableBodyCell>
                 <TableBodyCell class="px-0 py-2 text-[#475466]">{item.item}</TableBodyCell>
@@ -62,15 +64,11 @@
             
           {/each}
         </TableBody>
-        <div>
-          <tfoot class="float-right">
-            <tr class="font-semibold text-gray-900 dark:text-white">
-              <th scope="row" class="py-3 px-6 text-base">Total</th>
-              <td class="py-3 px-6">3</td>
-              <td class="py-3 px-6">21,000</td>
-            </tr>
-          </tfoot>
-        </div>
         
-      </Table>
+    </Table>
+   
+
+<div class="mx-2 flex h-[590] w-[350px] flex-col overflow-scroll bg-white rounded-lg px-2 scrollbar-hide">
+  <Persons />
+</div>
     </div>

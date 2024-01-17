@@ -6,8 +6,11 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-		Button
+		Button,
+		Badge
 	} from 'flowbite-svelte';
+	
+	import { CheckOutline, ExclamationCircleSolid } from 'flowbite-svelte-icons';
 	import { writable } from 'svelte/store';
 	import Persons from './persons.svelte';
 	import { InlineCalendar } from 'svelte-calendar';
@@ -81,7 +84,7 @@
 	};
 </script>
 
-<div class="mr-2 mt-10 flex justify-end gap-5 bg-neutral-100 rounded">
+<div class="grid grid-flow-col-dense gap-5 mr-2 mt-7 rounded">
 	<div class="bg-white p-2 rounded-lg">
 		<div class="mb-3 flex justify-between">
 			<div>
@@ -104,10 +107,11 @@
 			</div>
 		</div>
 
-		<div class="h-[565px] overflow-scroll scrollbar-hide">
-			<Table hoverable={true} class="bg-neutral-400">
-				<TableHead>
+		<div class="h-[565px] overflow-scroll scrollbar-hide ">
+			<Table hoverable={true} class="sticky ">
+				<TableHead class='sticky w-full'>
 					<TableHeadCell>#</TableHeadCell>
+					<TableHeadCell></TableHeadCell>
 					<TableHeadCell>Date</TableHeadCell>
 					<TableHeadCell>Payment</TableHeadCell>
 					<TableHeadCell>Purchase</TableHeadCell>
@@ -115,10 +119,29 @@
 					<TableHeadCell>sum</TableHeadCell>
 					<TableHeadCell>Left</TableHeadCell>
 				</TableHead>
-				<TableBody>
+				<TableBody tableBodyClass="h-[565px] overflow-scroll scrollbar-hide">
 					{#each $sortItems as data}
 						<TableBodyRow>
 							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.id}</TableBodyCell>
+							<div class="px-2 py-2">
+								{#if data.status ==='success'}
+									<Badge color="green" rounded large class="!p-1 !font-semibold">
+										<CheckOutline class="h-3 w-3" />
+									  </Badge>
+									  {/if}
+									  {#if data.status === 'waiting'}
+										<Badge color='indigo' rounded large class="!p-1 !font-semibold">
+											<CheckOutline class="h-3 w-3" />
+											</Badge>
+									  {/if}
+									  {#if data.status === 'failed'}
+										<Badge color='red' rounded large class="!p-1 !font-semibold">
+											<ExclamationCircleSolid class="h-3 w-3 " />
+											</Badge>
+									  {/if}
+
+
+							</div>
 							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.date}</TableBodyCell>
 							<TableBodyCell class="flex items-center gap-2 px-2 py-2 text-[#475466]"
 								><img

@@ -1,6 +1,10 @@
 <script lang='ts'>
     import { Chart, Card, A, Button, Dropdown, DropdownItem, Popover, Tooltip } from 'flowbite-svelte';
     import { InfoCircleSolid, ArrowDownToBraketSolid, ChevronDownSolid, ChevronRightSolid, PenSolid, DownloadSolid, ShareNodesSolid } from 'flowbite-svelte-icons';
+    import {person} from '../../data/persons';
+  
+
+
   
     let isOpen = false;
   
@@ -60,9 +64,13 @@
         }
       }
     };
+
+
+
   </script>
   
-  <Card class='flex justify-center w-full ml-auto mr-auto'>
+ <div>
+   <Card class='flex justify-center w-screen '>
     <div class="flex justify-center items-start w-full">
       <div class="flex-col items-center">
         <div class="flex items-center mb-1">
@@ -84,6 +92,7 @@
         <Tooltip>Download CSV</Tooltip>
       </div>
     </div>
+   
   
     <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
       <div class="grid grid-cols-3 gap-3 mb-2">
@@ -125,7 +134,7 @@
   
     <Chart {options} class="py-6" />
   
-    <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+    <div class="items-center border-gray-200 border-t dark:border-gray-700 justify-between">
       <div class="flex justify-between items-center pt-5">
         <Button class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white bg-transparent hover:bg-transparent dark:bg-transparent dark:hover:bg-transparent focus:ring-transparent dark:focus:ring-transparent py-0">Last 7 days<ChevronDownSolid class="w-2.5 m-2.5 ms-1.5" /></Button>
         <Dropdown class="w-40">
@@ -142,3 +151,4 @@
       </div>
     </div>
   </Card>
+</div>

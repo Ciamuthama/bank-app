@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { Link } from 'svelte-routing';
 	import { person } from '../../data/persons';
-	import { List, Li } from 'flowbite-svelte';
+	import { List, Li, Input, Label } from 'flowbite-svelte';
 
-	let selectedId = 1;
+	let selectedId = '';
 
-	const nextUser = () => {
-		return (selectedId = (selectedId % person.length) + 1);
-	};
+	
 </script>
 
 {#each person as user}
+{#if user.fname === selectedId }
+  <Label for='serach'>
+    <Input type='search' class='bg-gray-500' value={selectedId} />
+  </Label>
+{/if}
 	<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
 		<Li class="pb-3 sm:pb-4">
 			

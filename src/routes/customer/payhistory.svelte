@@ -40,10 +40,10 @@
   
     </script>
     
-    <div class="overflow-scroll h-screen scrollbar-hide w-full bg-white">
+    <div class="overflow-scroll h-screen max-w-screen-lg scrollbar-hide bg-white">
     <Table hoverable={true}>
       <TableHead class='bg-white'>
-      <TableHeadCell on:click={() => sortTable('date')} class='px-2'>Date</TableHeadCell>
+      <TableHeadCell on:click={() => sortTable('date')} class='px-2 '>Date</TableHeadCell>
         <TableHeadCell on:click={() => sortTable('quantity')}>Type</TableHeadCell>
         <TableHeadCell on:click={() => sortTable('type')}>item</TableHeadCell>
         <TableHeadCell on:click={() => sortTable('make')}>Quantity</TableHeadCell>

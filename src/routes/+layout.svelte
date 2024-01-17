@@ -1,24 +1,29 @@
 <script lang="ts">
-	import './styles.css'
-	import Persons from './transaction/persons.svelte';
-	
-	 import Page from './navigation/navigation.svelte'
+	import './styles.css';
+	import Page from './navigation/navigation.svelte';
+	import { UserSettingsOutline, BellActiveSolid } from 'flowbite-svelte-icons';
+
 </script>
 
 <svelte:head>
 	<title>Svelte Material UI - Text Field</title>
-	
 </svelte:head>
 
-<div class="overflow-y-hidden h-screen bg-neutral-100">
-	<div>im the header</div>
-	<div class="grid gap-4 grid-flow-col-dense">
-		<Page/>
-		<slot/>
-		<div class="mx-2 flex h-[590] w-[350px] flex-col overflow-scroll bg-white rounded-lg px-2 scrollbar-hide">
-			<Persons />
+<div class="h-screen overflow-y-hidden bg-white scrollbar-hide">
+	<div class="flex items-center justify-between mt-5 mr-2">
+		<div class="flex items-center gap-5 ml-20">
+			<img src="https://icon.horse/icon/webix.com" width="26px" alt="webix" srcset="" />
+			<h2 class="text-sm font-medium">WEBIX</h2>
+		</div>
+		<div>
+			<div class="flex">
+				<UserSettingsOutline  />
+				<BellActiveSolid/>
+			</div>
 		</div>
 	</div>
-
-
+	<div class="grid grid-flow-col-dense gap-1">
+		<Page />
+		<slot />
+	</div>
 </div>
