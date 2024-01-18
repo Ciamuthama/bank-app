@@ -50,8 +50,8 @@
 			}
 			return 0;
 		});
-		let allowed = [0, 1];
-		const filltered = sorted.filter((item) => allowed.includes(item.type));
+		let allowed = [0 , 1];
+		const filltered = sorted.filter((item) => allowed.includes(item.type.valueOf()));
 		sortItems.set(filltered);
 	}
 	

@@ -27,7 +27,7 @@
 	import { onMount } from 'svelte';
 	import Persons from '../transaction/persons.svelte';
 
-	let selected: any;
+	let selected: [];
 	let onePerson = 1;
 
 	const nextUser = () => {
@@ -35,13 +35,21 @@
 	};
 
 	let select = 1;
+	const tags = [
+	{ value:"1", name:"New", color:"#8664C6" },
+	{ value:"2", name:"Customer", color:"#BCAAE0" },
+	{ value:"3", name:"Supplier", color:"#1CA1C1" },
+	{ value:"4", name:"Discount", color:"#5ABBD2" },
+	{ value:"5", name:"Old Buddy", color:"#FDBF4C" },
+	{ value:"6", name:"Avid Supporter", color:"#F8643F" }
+];
 </script>
 
-<div>
+<div class="overflow-scroll h-screen scrollbar-hide">
 	{#each person as user}
 		{#if user.id === onePerson}
 			{#key user.id}
-				<div>
+				<div class="h-screen overflow-scroll scrollbar-hide">
 					<form>
 						<div class="mx-auto w-full">
 							<div class="mb-2 flex place-content-between ">
@@ -104,7 +112,7 @@
 								</div>
 								<div class="flex flex-col gap-1">
 									<Avatar src={user.photo} rounded class="h-[259px] w-[259px]" />
-									<MultiSelect value={user.tags} class="w-[259px]" size="sm" />
+									<MultiSelect items={tags} bind:value={selected} class="w-[259px]" size="sm" />
 								</div>
 							</div>
 

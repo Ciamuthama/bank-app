@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config}*/
+const colors = require('tailwindcss/colors');
 const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'],
 
@@ -17,13 +18,14 @@ const config = {
 			  700: '#46B2CC',
 			  800: '#46B2CC',
 			  900: '#46B2CC'
-			}
+			},
+			accent: colors.indigo,
 		  }
 		}
 	  },
 	
 
-	plugins: [require('flowbite/plugin'),require('tailwind-scrollbar-hide'),require("daisyui")],
+	plugins: [require('flowbite/plugin'),require('tailwind-scrollbar-hide'),require("daisyui"),require('svelte-ux/plugins/tailwind.cjs')],
 	
 };
 
