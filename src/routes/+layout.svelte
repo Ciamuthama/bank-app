@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './styles.css';
 	import Page from './navigation/navigation.svelte';
-	import { UserSettingsOutline, BellActiveSolid } from 'flowbite-svelte-icons';
+	import { BellSolid, UserSettingsSolid} from 'flowbite-svelte-icons';
 
 </script>
 
@@ -16,9 +16,9 @@
 			<h2 class="text-sm font-medium">WEBIX</h2>
 		</div>
 		<div>
-			<div class="flex">
-				<UserSettingsOutline  />
-				<BellActiveSolid/>
+			<div class="flex gap-3">
+				<BellSolid/>
+				<UserSettingsSolid  />
 			</div>
 		</div>
 	</div>

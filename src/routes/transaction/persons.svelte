@@ -44,20 +44,26 @@
 	}
 </script>
 
+<style>
+
+</style>
 <main>
 	
-	<Label for="search">Person</Label>
-	<Search class='h-8 mb-2' id="search" bind:value={search} on:input={handle_search} />
+	
+	
 
 	{#each user as person}
 		<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-			<Li class="pb-3 sm:pb-4">
+			<Li class="pb-3 sm:pb-4" id='photo'>
 				<div
 					class="flex items-center space-x-4 px-1 hover:border-l-2 hover:border-l-[#46B2CC] active:border-l-[#46B2CC] active:bg-neutral-200 rtl:space-x-reverse"
 				>
 					<div class="flex-shrink-0">
 						<img class="h-8 w-8 rounded-full" src={person.photo} alt={person.fname} />
 					</div>
+				<div>
+
+				</div>
 					<div class="min-w-0 flex-1">
 						<p class="truncate text-sm font-medium text-gray-900 dark:text-white">
 							{person.fname}

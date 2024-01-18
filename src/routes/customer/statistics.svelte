@@ -70,7 +70,7 @@
   </script>
   
  <div>
-   <Card class='flex justify-center w-screen '>
+   <Card class='flex justify-center  max-w-screen-lg '>
     <div class="flex justify-center items-start w-full">
       <div class="flex-col items-center">
         <div class="flex items-center mb-1">

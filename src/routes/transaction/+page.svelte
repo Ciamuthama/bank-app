@@ -7,9 +7,11 @@
 		TableHead,
 		TableHeadCell,
 		Button,
-		Badge
+		Badge,
+		Label,
+		Search
 	} from 'flowbite-svelte';
-	
+
 	import { CheckOutline, ExclamationCircleSolid } from 'flowbite-svelte-icons';
 	import { writable } from 'svelte/store';
 	import Persons from './persons.svelte';
@@ -35,8 +37,6 @@
 		}
 	};
 
-	
-
 	$: {
 		const key = $sortKey;
 		const direction = $sortDirection;
@@ -44,17 +44,17 @@
 			const aVal = a[key];
 			const bVal = b[key];
 			if (aVal < bVal) {
-				return -direction ;
+				return -direction;
 			} else if (aVal > bVal) {
 				return direction;
 			}
 			return 0;
 		});
-		let allowed = [0 , 1];
+		let allowed = [0, 1];
 		const filltered = sorted.filter((item) => allowed.includes(item.type.valueOf()));
 		sortItems.set(filltered);
 	}
-	
+
 	const total = Transactions.reduce((total, item) => total + parseInt(item.sum), 0).toFixed(2);
 	const left = Transactions.reduce((total, item) => total + parseInt(item.left), 0).toFixed(2);
 
@@ -82,10 +82,14 @@
 	const sortIt = {
 		toggle: !toggle ? activeClass : nonActiveClass
 	};
+
+	function handle_search(e: Event): void {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
-<div class="grid grid-flow-col-dense gap-5 mr-2 mt-7 rounded">
-	<div class="bg-white p-2 rounded-lg">
+<div class="mr-2 mt-7 grid grid-flow-col-dense gap-5 rounded">
+	<div class="rounded-lg bg-white p-2">
 		<div class="mb-3 flex justify-between">
 			<div>
 				<h2 class="font-bold text-neutral-600">Transactions</h2>
@@ -107,9 +111,9 @@
 			</div>
 		</div>
 
-		<div class="h-[565px] overflow-scroll scrollbar-hide ">
+		<div class="h-[565px] overflow-scroll scrollbar-hide">
 			<Table hoverable={true} class="sticky ">
-				<TableHead class='sticky w-full'>
+				<TableHead class="sticky w-full">
 					<TableHeadCell>#</TableHeadCell>
 					<TableHeadCell></TableHeadCell>
 					<TableHeadCell>Date</TableHeadCell>
@@ -122,27 +126,26 @@
 				<TableBody tableBodyClass="h-[565px] overflow-scroll scrollbar-hide">
 					{#each $sortItems as data}
 						<TableBodyRow>
-							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.id}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-center text-[#475466]">{data.id}</TableBodyCell>
 							<div class="px-2 py-2">
-								{#if data.status ==='success'}
+								{#if data.status === 'success'}
 									<Badge color="green" rounded large class="!p-1 !font-semibold">
 										<CheckOutline class="h-3 w-3" />
-									  </Badge>
-									  {/if}
-									  {#if data.status === 'waiting'}
-										<Badge color='indigo' rounded large class="!p-1 !font-semibold">
-											<CheckOutline class="h-3 w-3" />
-											</Badge>
-									  {/if}
-									  {#if data.status === 'failed'}
-										<Badge color='red' rounded large class="!p-1 !font-semibold">
-											<ExclamationCircleSolid class="h-3 w-3 " />
-											</Badge>
-									  {/if}
-
-
+									</Badge>
+								{/if}
+								{#if data.status === 'waiting'}
+									<Badge color="indigo" rounded large class="!p-1 !font-semibold">
+										<CheckOutline class="h-3 w-3" />
+									</Badge>
+								{/if}
+								{#if data.status === 'failed'}
+									<Badge color="red" rounded large class="!p-1 !font-semibold">
+										<ExclamationCircleSolid class="h-3 w-3 " />
+									</Badge>
+								{/if}
 							</div>
-							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.date}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-center text-[#475466]">{data.date}</TableBodyCell
+							>
 							<TableBodyCell class="flex items-center gap-2 px-2 py-2 text-[#475466]"
 								><img
 									src={`https://icon.horse/icon/${data.method}.com`}
@@ -151,12 +154,13 @@
 									alt={data.method}
 								/><span>{data.method} {data.number}</span></TableBodyCell
 							>
-							<TableBodyCell class="px-3 py-2 text-[#475466] text-left"
+							<TableBodyCell class="px-3 py-2 text-left text-[#475466]"
 								>{data.name}/ {data.city}/ {data.country}</TableBodyCell
 							>
-							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.type}</TableBodyCell>
-							<TableBodyCell class="px-2 py-2 text-[#475466] text-center">{data.sum}</TableBodyCell>
-							<TableBodyCell class="px-2 py-2 font-medium text-[#475466] text-center"
+							<TableBodyCell class="px-2 py-2 text-center text-[#475466]">{data.type}</TableBodyCell
+							>
+							<TableBodyCell class="px-2 py-2 text-center text-[#475466]">{data.sum}</TableBodyCell>
+							<TableBodyCell class="px-2 py-2 text-center font-medium text-[#475466]"
 								>{data.left}</TableBodyCell
 							>
 						</TableBodyRow>
@@ -165,21 +169,24 @@
 			</Table>
 			<div class="fixed flex w-full justify-center"></div>
 		</div>
-		
-			<tfoot class="flex justify-end">
-				<tr class="font-semibold text-gray-900 dark:text-white">
-					<th scope="row" class="px-6 py-1 text-[14px]">Total</th>
-					<td class="px-3 py-1 text-[14px]">${total}</td>
-					<td class="px-3 py-1 text-[14px]">${left}</td>
-				</tr>
-			</tfoot>
-		
+
+		<tfoot class="flex justify-end">
+			<tr class="font-semibold text-gray-900 dark:text-white">
+				<th scope="row" class="px-6 py-1 text-[14px]">Total</th>
+				<td class="px-3 py-1 text-[14px]">${total}</td>
+				<td class="px-3 py-1 text-[14px]">${left}</td>
+			</tr>
+		</tfoot>
 	</div>
 
 	<div>
-		<div class="mb-2 h-[284.5px] overflow-scroll rounded-lg bg-white p-2 scrollbar-hide">
-			<Persons />
+		<div>
+			<Label for="search">Person</Label>
+			<Search class="mb-2 h-8" id="search" on:input={handle_search} />
+			<div class="mb-2 h-[284.5px] overflow-scroll rounded-lg bg-white p-2 scrollbar-hide">
+				<Persons />
+			</div>
 		</div>
-		<div class="bg-white p-2 rounded-lg"><InlineCalendar {theme} /></div>
+		<div class="rounded-lg bg-white p-2"><InlineCalendar {theme} /></div>
 	</div>
 </div>

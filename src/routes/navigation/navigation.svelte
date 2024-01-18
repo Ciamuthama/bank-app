@@ -1,4 +1,6 @@
 <script>
+	import { ShoppingCartSolid } from "flowbite-svelte-icons";
+
 
   
    let navActive = false;
@@ -54,7 +56,6 @@
     padding: 5px;
     text-decoration: none;
     white-space: nowrap;
-    border-radius: 30px;
     color: transparent;
     transition: 300ms;
   }
@@ -88,7 +89,6 @@
     background: white;
     cursor: pointer;
   }
-
   
 </style>
 
@@ -105,12 +105,15 @@
       </div>
     </div>
     <ul class="menu__List" class:active='{activeTab}'>
-      <li class="menu__Item"><a title="🐤" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction">Transaction</a></li>
-      <li class="menu__Item"><a title="🐶" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
-      <li class="menu__Item"><a title="🙈" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
-      <li class="menu__Item"><a title="🐤" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction">Transaction</a></li>
-      <li class="menu__Item"><a title="🐶" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
-      <li class="menu__Item"><a title="🙈" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
+      <li class="menu__Item flex">
+        
+        <a title="🛒" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction"><span>Transaction</span></a>
+      </li>
+      <li class="menu__Item"><a title="🛂" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
+      <li class="menu__Item"><a title="💹" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
+      <li class="menu__Item"><a title="🎲" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/transaction">Transaction</a></li>
+      <li class="menu__Item"><a title="🖥️" class=" menu__Link ${activeTab? 'menu__Link active':'menu__Link'}"  href="/customer">Customer</a></li>
+      <li class="menu__Item"><a title="💲" class=" menu__Link ${activeTab ? 'menu__Link active':'menu__Link'}" href="/payhistory">Payment History</a></li>
       
     </ul>
   </nav>
