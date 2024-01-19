@@ -45,6 +45,7 @@
 	"type": "module",
 	"dependencies": {
 		"layerchart": "^0.27.1",
+		"marked": "^11.1.1",
 		"svelte-routing": "^2.11.0",
 		"tailwind-scrollbar-hide": "^1.1.7"
 	}

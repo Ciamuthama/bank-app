@@ -22,6 +22,7 @@
 		FaceGrinOutline,
 		PapperPlaneOutline
 	} from 'flowbite-svelte-icons';
+	import {marked} from 'marked'
 	import Navigation from '../navigation/navigation.svelte';
 	import { person } from '../../data/persons';
 	import { onMount } from 'svelte';
@@ -34,7 +35,8 @@
 		return (onePerson = (onePerson % person.length) + 1);
 	};
 
-	let select = 1;
+	let select = 1
+	let select2 = 2
 	const tags = [
 	{ value:"1", name:"New", color:"#8664C6" },
 	{ value:"2", name:"Customer", color:"#BCAAE0" },
@@ -43,6 +45,14 @@
 	{ value:"5", name:"Old Buddy", color:"#FDBF4C" },
 	{ value:"6", name:"Avid Supporter", color:"#F8643F" }
 ];
+
+const positions = [
+	{ value:"$empty", name:"-- Not selected --", $empty:true },
+	{ value:"1", name:"Sales manager", color:"#8664C6" },
+	{ value:"2", name:"Customer service", color:"#1CA1C1" },
+	{ value:"3", name:"General manager", color:"#F8643F" }
+];
+
 </script>
 
 <div class="overflow-scroll h-screen scrollbar-hide">
@@ -107,24 +117,35 @@
 									</div>
 									<div class="w-64">
 										<Label for="visitors" class="mb-1">Position</Label>
-										<Select class="mt-2 w-64" value={user.position} placeholder="Select position" />
+										<Select class="mt-2 w-64" items={positions} value={user.position} placeholder="Select position" />
 									</div>
 								</div>
 								<div class="flex flex-col gap-1">
 									<Avatar src={user.photo} rounded class="h-[259px] w-[259px]" />
-									<MultiSelect items={tags} bind:value={selected} class="w-[259px]" size="sm" />
+									<MultiSelect items={tags} value={user.tags} class="w-[259px]" size="sm" />
 								</div>
 							</div>
 
 							<div class="flex flex-col">
 								<Label for="example" class="mb-2">Notifications</Label>
 								<div class="mb-2 flex flex-row gap-2">
-									<Radio name="example" bind:group={select} value={1}>Yes</Radio>
-									<Radio name="example" value={2}>No</Radio>
+									<Radio name="example" bind:group={select} value={user.notifications}>Yes</Radio>
+									<Radio name="example"  bind:group={select2} value={user.notifications}>No</Radio>
 								</div>
 							</div>
 						</div>
 					</form>
+					<Button on:click={nextUser}>
+						<h2 class="text-white">Next User</h2>
+					</Button>
+					<div class="float-right">
+						<Button class="bg-neutral-100 hover:bg-neutral-200"
+							><h2 class="text-[#46B2CC]">Reset</h2></Button
+						>
+						<Button class="bg-neutral-100 hover:bg-neutral-200"
+							><h2 class="text-[#46B2CC]">Save</h2></Button
+						>
+					</div>
 					<div>
 						<label for="editor" class="mb-2 text-sm font-semibold">Notes</label>
 						<Textarea
@@ -132,8 +153,8 @@
 							rows="5"
 							col="4"
 							class="mb-4"
-							value={user.notes.toString()}
-							placeholder={user.notes.toString()}
+							value={user.notes.normalize()}
+							placeholder={user.notes.normalize()}
 						>
 							<Toolbar slot="header" embedded class="h-5 p-1">
 								<ToolbarGroup>
@@ -154,20 +175,9 @@
 								>
 							</Toolbar>
 						</Textarea>
-						<div class="float-right">
-							<Button class="bg-neutral-100 hover:bg-neutral-200"
-								><h2 class="text-[#46B2CC]">Reset</h2></Button
-							>
-							<Button class="bg-neutral-100 hover:bg-neutral-200"
-								><h2 class="text-[#46B2CC]">Save</h2></Button
-							>
-						</div>
 					</div>
 				</div>
 			{/key}
 		{/if}
 	{/each}
-	<Button on:click={nextUser}>
-		<h2 class="text-white">Next User</h2>
-	</Button>
 </div>
