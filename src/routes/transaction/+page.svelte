@@ -82,10 +82,6 @@
 	const sortIt = {
 		toggle: !toggle ? activeClass : nonActiveClass
 	};
-
-	function handle_search(e: Event): void {
-		throw new Error('Function not implemented.');
-	}
 </script>
 
 <div class="mr-2 mt-7 grid grid-flow-col-dense gap-5 rounded">
@@ -112,7 +108,7 @@
 		</div>
 
 		<div class="h-[565px] overflow-scroll scrollbar-hide">
-			<Table hoverable={true} class="sticky ">
+			<Table hoverable={true}>
 				<TableHead class="sticky w-full">
 					<TableHeadCell>#</TableHeadCell>
 					<TableHeadCell></TableHeadCell>
@@ -144,6 +140,7 @@
 									</Badge>
 								{/if}
 							</div>
+
 							<TableBodyCell class="px-2 py-2 text-center text-[#475466]">{data.date}</TableBodyCell
 							>
 							<TableBodyCell class="flex items-center gap-2 px-2 py-2 text-[#475466]"
@@ -181,12 +178,10 @@
 
 	<div>
 		<div>
-			<Label for="search">Person</Label>
-			<Search class="mb-2 h-8" id="search" on:input={handle_search} />
-			<div class="mb-2 h-[284.5px] overflow-scroll rounded-lg bg-white p-2 scrollbar-hide">
-				<Persons />
-			</div>
+			<Persons />
 		</div>
-		<div class="rounded-lg bg-white p-2"><InlineCalendar {theme} /></div>
+		<div class="rounded-lg bg-white p-2">
+			<InlineCalendar {theme} />
+		</div>
 	</div>
 </div>

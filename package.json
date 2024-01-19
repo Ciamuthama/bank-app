@@ -13,6 +13,7 @@
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
+		"@iconify/icons-mdi": "^1.2.48",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
@@ -45,7 +46,9 @@
 	"type": "module",
 	"dependencies": {
 		"layerchart": "^0.27.1",
+		"marked": "^11.1.1",
 		"svelte-routing": "^2.11.0",
-		"tailwind-scrollbar-hide": "^1.1.7"
+		"tailwind-scrollbar-hide": "^1.1.7",
+		"unplugin-icons": "^0.18.2"
 	}
 }
