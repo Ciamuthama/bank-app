@@ -31,11 +31,6 @@
 
 	<div>
 		<Label for="search">Person</Label>
-		<Search class="mb-2 h-8" id="search" on:input={handle_search} />
-		<div
-			class="mx-2 flex h-screen w-[350px] flex-col overflow-scroll rounded-lg bg-white px-2 scrollbar-hide"
-		 >
 			<Persons />
-		</div>
 	</div>
 </div>

@@ -1,7 +1,9 @@
+import { writable } from "svelte/store";
+let selectedPerson = writable({})
 
-import { person } from "../../data/persons";
-import payment from '../../data/payments.json'
-import individual from '../../data/ipayments.json'
 
-const combine = {...person,...individual, ...payment}
-console.log(combine);
+const selectPerson =(person: any)=>{
+    selectedPerson.set(person)
+}
+
+export {selectedPerson,selectPerson }
