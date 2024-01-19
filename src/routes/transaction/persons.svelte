@@ -3,6 +3,7 @@
 	import { person } from '../../data/persons';
 	import { List, Li, Input, Label, Search } from 'flowbite-svelte';
 
+
 	let user = person;
 	let search = '';
 
@@ -10,6 +11,7 @@
 		const fullname = person.fname + person.lname;
 		return fullname.toLocaleLowerCase().includes(search.toLocaleLowerCase());
 	});
+	
 </script>
 
 <main class="bg-neutral-200 p-2 rounded-lg">
@@ -18,7 +20,7 @@
 	</div>
 <div class="mx-2 flex h-screen flex-col overflow-scroll rounded-lg bg-white px-2 scrollbar-hide">
 	{#each filteredPersons as person (person.id)}
-	
+	<a href="/customer/form">
 			<List tag="ul" list="none" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
 				<Li class="pb-3 sm:pb-4" id="photo">
 					<div
@@ -39,10 +41,8 @@
 						</div>
 					</div>
 				</Li>
-			</List>
+			</List></a>
 		
 	{/each}</div>
 </main>
 
-<style>
-</style>

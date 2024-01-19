@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Tabs, TabItem, Search, Label } from 'flowbite-svelte';
 	import Statistics from './statistics.svelte';
-	import Form from './form.svelte';
+	import Form from './form/+page.svelte';
 	import Persons from '../transaction/persons.svelte';
 	import Payhistory from './payhistory.svelte';
 	import { person } from '../../data/persons';

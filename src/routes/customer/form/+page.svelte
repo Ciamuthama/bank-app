@@ -23,10 +23,10 @@
 		PapperPlaneOutline
 	} from 'flowbite-svelte-icons';
 	import { marked } from 'marked';
-	import Navigation from '../navigation/navigation.svelte';
-	import { person } from '../../data/persons';
+	import Navigation from '../../navigation/navigation.svelte';
+	import { person } from '../../../data/persons';
 	import { onMount } from 'svelte';
-	import Persons from '../transaction/persons.svelte';
+	import Persons from '../../transaction/persons.svelte';
 	
 	import { pushState } from '$app/navigation';
 
@@ -169,7 +169,7 @@
 				<button on:click={nextUser} class="flex items-center gap-2 ">
 					<Avatar  src={person[(onePerson % person.length)].photo} rounded class="h-[50px] w-[50px]" />
 					<h2 class="text-base font-bold text-black">
-						{person[(onePerson % person.length)].fname}
+						{person[(onePerson % person.length)].fname +' '+ person[(onePerson % person.length)].lname}
 					</h2>
 				</button>
 				<div class="float-right">
